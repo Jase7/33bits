@@ -2,11 +2,11 @@
 // @name        Ignora hilos
 // @namespace   Ignora hilos
 // @description Ignora hilos en 33bits
-// @version     0.3
+// @version     0.5
 // @include     http://33bits.gamestribune.com/foro*
 // @include     http://www.33bits.gamestribune.com/foro*
 // @grant       none
-// ==/UserScript==  
+// ==/UserScript==   
 
 /* 
 
@@ -41,7 +41,7 @@ window.onload = function() {
             var name = prompt("Añade el hilo (NOMBRE)");
 
             /* Save the link of the thread */
-            var t = document.querySelectorAll('div span span a');
+            var t = document.querySelectorAll('tr.inline_row span[id][class] a');
             var link; 
 
             if (t.length != 0) {
@@ -52,13 +52,6 @@ window.onload = function() {
                         link = t[i].href;
                         break;
                     }
-
-                    //If we want to add a thread from the own thread
-                    else {
-                        link = window.location.protocol + "//" + window.location.hostname + window.location.pathname;
-                        break;
-                    }
-
                 }
             }
 
@@ -124,12 +117,15 @@ window.onload = function() {
 
         function ignoreIndex() {
 
-            var t2 = document.querySelectorAll('span.smalltext a'); 
+            var t2 = document.querySelectorAll('span.smalltext a');             
+            
+             for (i = 0; i < localStorage.length; i++) {
+                 
+                for (j = 0; j < t2.length; j++) {
 
-            for (i = 0; i < t2.length; i++) {
-
-                if (t2[i].title == localStorage.key(i)) {
-                    t2[i].parentNode.innerHTML = "HILO IGNORADO";
+                    if (t2[j].title == localStorage.key(i)) {
+                        t2[j].parentNode.innerHTML = "HILO IGNORADO";
+                    }
                 }
             }
         } //end ignoreIndex
@@ -213,7 +209,8 @@ window.onload = function() {
  e.style.cursor = "pointer";
  document.querySelector(".dropDown li").style.display = "block";
  
- //Add the events
+ 
+ 
  a.addEventListener("click", addThread);
  s.addEventListener("click", seeIgnoredThreads);
  e.addEventListener("click", deleteAll);
