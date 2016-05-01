@@ -41,7 +41,7 @@ window.onload = function() {
             var name = prompt("Añade el hilo (NOMBRE)");
 
             /* Save the link of the thread */
-            var t = document.querySelectorAll('tr.inline_row span[id][class] a');
+            var t = document.querySelectorAll('div span span a');
             var link; 
 
             if (t.length != 0) {
@@ -52,6 +52,13 @@ window.onload = function() {
                         link = t[i].href;
                         break;
                     }
+                    
+                     //If we want to add a thread from the own thread
+-                    else {
+-                        link = window.location.protocol + "//" + window.location.hostname + window.location.pathname;
+-                        break;
+-                    }
+
                 }
             }
 
